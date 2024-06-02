@@ -70,6 +70,7 @@ class CartActivity : AppCompatActivity() {
                         recyclerView.adapter = CartAdapter(cartItems, this@CartActivity, userId) {
                             total = cartItems.sumOf { it.produtoPreco * it.quantidadeDisponivel }
                             totalTextView.text = "Total: R$${String.format("%.2f", total)}"
+
                         }
                     }
                     // Log the retrieved data
@@ -115,6 +116,7 @@ class CartActivity : AppCompatActivity() {
             holder.productQuantity.text = "Qtd: ${item.quantidadeDisponivel}"
             Glide.with(context).load(item.imagemUrl).into(holder.productImage)
 
+
             holder.deleteButton.setOnClickListener {
                 removeItemFromCart(item, position)
             }
@@ -135,7 +137,7 @@ class CartActivity : AppCompatActivity() {
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, items.size)
                         updateTotal()
-                        Log.d("CartAdapter", "Item updated to 0: $item")
+                        Toast.makeText(context, "Item deletado com sucesso", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(context, "Failed to update item", Toast.LENGTH_SHORT).show()
                         Log.e("CartAdapter", "Error updating item: ${response.code()} - ${response.message()}")
