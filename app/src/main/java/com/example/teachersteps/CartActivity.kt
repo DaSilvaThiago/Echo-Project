@@ -68,12 +68,10 @@ class CartActivity : AppCompatActivity() {
                         Log.d("CartActivity", "No items in cart.")
                     } else {
                         recyclerView.adapter = CartAdapter(cartItems, this@CartActivity, userId) {
-                            total = cartItems.sumOf { it.produtoPreco * it.quantidadeDisponivel }
-                            totalTextView.text = "Total: R$${String.format("%.2f", total)}"
-
+                            updateTotal(cartItems)
                         }
                     }
-                    // Log the retrieved data
+                    updateTotal(cartItems)
                     Log.d("CartActivity", "Cart items retrieved: $cartItems")
                 } else {
                     Toast.makeText(this@CartActivity, "Failed to fetch cart items", Toast.LENGTH_SHORT).show()
@@ -86,6 +84,11 @@ class CartActivity : AppCompatActivity() {
                 Log.e("CartActivity", "Error connecting to the server: ${t.message}", t)
             }
         })
+    }
+
+    private fun updateTotal(cartItems: List<Produto>) {
+        total = cartItems.sumOf { it.produtoPreco * it.quantidadeDisponivel }
+        totalTextView.text = "Total: R$${String.format("%.2f", total)}"
     }
 
     class CartAdapter(
@@ -115,7 +118,6 @@ class CartActivity : AppCompatActivity() {
             holder.productPrice.text = "R$${String.format("%.2f", item.produtoPreco)}"
             holder.productQuantity.text = "Qtd: ${item.quantidadeDisponivel}"
             Glide.with(context).load(item.imagemUrl).into(holder.productImage)
-
 
             holder.deleteButton.setOnClickListener {
                 removeItemFromCart(item, position)
@@ -162,7 +164,6 @@ class CartActivity : AppCompatActivity() {
         fun updateCartItemQuantityToZero(@Body requestBody: Map<String, Int>): Call<Void>
     }
 
-    // Classe Produto
     data class Produto(
         @SerializedName("PRODUTO_ID") val produtoId: Int,
         @SerializedName("PRODUTO_NOME") val produtoNome: String,
