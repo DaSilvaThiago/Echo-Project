@@ -1,6 +1,7 @@
 package com.example.teachersteps
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.annotations.SerializedName
 import retrofit2.Call
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -31,12 +34,12 @@ class CartActivity : AppCompatActivity() {
     private lateinit var goToPaymentButton: Button
     private var total: Double = 0.0
     private var userId: Int = 0
+    private var items: MutableList<Produto> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        // Initialize shared preferences and userId
         val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
         userId = sharedPreferences.getInt("userId", 0)
 
@@ -48,7 +51,13 @@ class CartActivity : AppCompatActivity() {
         fetchCartItems()
 
         goToPaymentButton.setOnClickListener {
-            // Ir para tela de pagamento enviando os dados
+            val intent = Intent(this, PaymentActivity::class.java).apply {
+                putExtra("TOTAL", total)
+                putExtra("USER", userId)
+                putParcelableArrayListExtra("PRODUCT_LIST", ArrayList(items))
+            }
+            Log.d("CART_ACTIVITY", "Lista de produtos a ser enviada: $items")
+            startActivity(intent)
         }
     }
 
@@ -71,6 +80,7 @@ class CartActivity : AppCompatActivity() {
                             updateTotal(cartItems)
                         }
                     }
+                    items = cartItems // Atualizando a lista de items
                     updateTotal(cartItems)
                     Log.d("CartActivity", "Cart items retrieved: $cartItems")
                 } else {
@@ -164,11 +174,16 @@ class CartActivity : AppCompatActivity() {
         fun updateCartItemQuantityToZero(@Body requestBody: Map<String, Int>): Call<Void>
     }
 
+    @Parcelize
     data class Produto(
         @SerializedName("PRODUTO_ID") val produtoId: Int,
         @SerializedName("PRODUTO_NOME") val produtoNome: String,
+        @SerializedName("PRODUTO_DESC") val produtoDesc: String?,
         @SerializedName("PRODUTO_PRECO") val produtoPreco: Double,
-        @SerializedName("QUANTIDADE_DISPONIVEL") val quantidadeDisponivel: Int,
-        @SerializedName("IMAGEM_URL") val imagemUrl: String
-    )
+        @SerializedName("PRODUTO_DESCONTO") val produtoDesconto: String?,
+        @SerializedName("CATEGORIA_ID") val categoriaId: Int,
+        @SerializedName("PRODUTO_ATIVO") val produtoAtivo: Int,
+        @SerializedName("IMAGEM_URL") val imagemUrl: String,
+        @SerializedName("QUANTIDADE_DISPONIVEL") val quantidadeDisponivel: Int
+    ) : Parcelable
 }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TeacherSteps</string>
+    <string name="card_number">NÃºmero do CartÃ£o</string>
+    <string name="card_expiration">Data de Validade (MM/AA)</string>
+    <string name="cvc">CVC</string>
+    <string name="finish_payment">Finalizar Pagamento</string>
+    <string name="total_value">Valor Total: $0.00</string>
 </resources>
