@@ -18,6 +18,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+import services.Services
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -66,7 +67,7 @@ class ProductDetailActivity : AppCompatActivity() {
             .client(client)
             .build()
 
-        val api = retrofit.create(ApiService::class.java)
+        val api = retrofit.create(Services.ProductDetail::class.java)
         api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
@@ -91,13 +92,4 @@ class ProductDetailActivity : AppCompatActivity() {
         })
     }
 
-    interface ApiService {
-        @FormUrlEncoded
-        @POST("/cart")
-        fun adicionarAoCarrinho(
-            @Field("USUARIO_ID") userId: Int,
-            @Field("PRODUTO_ID") produtoId: Int,
-            @Field("ITEM_QTD") quantidade: Int
-        ): Call<String>
-    }
 }

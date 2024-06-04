@@ -15,8 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import android.util.Log
 import com.google.gson.annotations.SerializedName
+import responses.Responses
 import retrofit2.http.GET
 import retrofit2.http.Query
+import services.Services
 
 class LoginActivity : AppCompatActivity() {
 
@@ -45,11 +47,11 @@ class LoginActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val apiService = retrofit.create(ApiService::class.java)
+        val apiService = retrofit.create(Services.Login::class.java)
 
         val call = apiService.login(email, password)
-        call.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+        call.enqueue(object : Callback<Responses.Login> {
+            override fun onResponse(call: Call<Responses.Login>, response: Response<Responses.Login>) {
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponses = response.body()!!
                     if (loginResponses.usuarioId != 0) {
@@ -79,28 +81,10 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<Responses.Login>, t: Throwable) {
                 Log.e("LoginActivity", "onFailure: " + t.message)
                 Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
         })
     }
-
-
-
-    interface ApiService {
-        @GET("/login")
-        fun login(
-            @Query("usuario") usuario: String,
-            @Query("senha") senha: String
-        ): Call<LoginResponse>
-    }
-
-    data class LoginResponse(
-        @SerializedName("USUARIO_ID") val usuarioId: Int,
-        @SerializedName("USUARIO_NOME") val usuarioNome: String,
-        @SerializedName("USUARIO_EMAIL") val usuarioEmail: String,
-        @SerializedName("USUARIO_SENHA") val usuarioSenha: String,
-        @SerializedName("USUARIO_CPF") val usuarioCpf: String,
-    )
 }

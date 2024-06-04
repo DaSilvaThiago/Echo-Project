@@ -19,6 +19,7 @@ import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import responses.Responses
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -27,6 +28,7 @@ import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Query
 import retrofit2.http.Body
+import services.Services
 
 class CartActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -34,7 +36,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var goToPaymentButton: Button
     private var total: Double = 0.0
     private var userId: Int = 0
-    private var items: MutableList<Produto> = mutableListOf()
+    private var items: MutableList<Responses.ProductCart> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +69,10 @@ class CartActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val api = retrofit.create(CartApiService::class.java)
+        val api = retrofit.create(Services.Cart::class.java)
 
-        api.getCartItems(userId).enqueue(object : Callback<List<Produto>> {
-            override fun onResponse(call: Call<List<Produto>>, response: Response<List<Produto>>) {
+        api.getCartItems(userId).enqueue(object : Callback<List<Responses.ProductCart>> {
+            override fun onResponse(call: Call<List<Responses.ProductCart>>, response: Response<List<Responses.ProductCart>>) {
                 if (response.isSuccessful) {
                     val cartItems = response.body()?.filter { it.quantidadeDisponivel > 0 }?.toMutableList() ?: mutableListOf()
                     if (cartItems.isEmpty()) {
@@ -89,24 +91,19 @@ class CartActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<Produto>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Responses.ProductCart>>, t: Throwable) {
                 Toast.makeText(this@CartActivity, "Error connecting to the server", Toast.LENGTH_SHORT).show()
                 Log.e("CartActivity", "Error connecting to the server: ${t.message}", t)
             }
         })
     }
 
-    private fun updateTotal(cartItems: List<Produto>) {
+    private fun updateTotal(cartItems: List<Responses.ProductCart>) {
         total = cartItems.sumOf { it.produtoPreco * it.quantidadeDisponivel }
         totalTextView.text = "Total: R$${String.format("%.2f", total)}"
     }
 
-    class CartAdapter(
-        private val items: MutableList<Produto>,
-        private val context: Context,
-        private val userId: Int,
-        private val updateTotal: () -> Unit
-    ) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+    class CartAdapter(private val items: MutableList<Responses.ProductCart>, private val context: Context, private val userId: Int, private val updateTotal: () -> Unit) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val productName: TextView = view.findViewById(R.id.productNameTextView)
@@ -134,14 +131,14 @@ class CartActivity : AppCompatActivity() {
             }
         }
 
-        private fun removeItemFromCart(item: Produto, position: Int) {
+        private fun removeItemFromCart(item: Responses.ProductCart, position: Int) {
             val requestBody = mapOf("userId" to userId, "productId" to item.produtoId)
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://echo-api-senac.vercel.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            val api = retrofit.create(CartApiService::class.java)
+            val api = retrofit.create(Services.Cart::class.java)
             api.updateCartItemQuantityToZero(requestBody).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
@@ -166,24 +163,5 @@ class CartActivity : AppCompatActivity() {
         override fun getItemCount() = items.size
     }
 
-    interface CartApiService {
-        @GET("/cart")
-        fun getCartItems(@Query("userId") userId: Int): Call<List<Produto>>
 
-        @PUT("/cart")
-        fun updateCartItemQuantityToZero(@Body requestBody: Map<String, Int>): Call<Void>
-    }
-
-    @Parcelize
-    data class Produto(
-        @SerializedName("PRODUTO_ID") val produtoId: Int,
-        @SerializedName("PRODUTO_NOME") val produtoNome: String,
-        @SerializedName("PRODUTO_DESC") val produtoDesc: String?,
-        @SerializedName("PRODUTO_PRECO") val produtoPreco: Double,
-        @SerializedName("PRODUTO_DESCONTO") val produtoDesconto: String?,
-        @SerializedName("CATEGORIA_ID") val categoriaId: Int,
-        @SerializedName("PRODUTO_ATIVO") val produtoAtivo: Int,
-        @SerializedName("IMAGEM_URL") val imagemUrl: String,
-        @SerializedName("QUANTIDADE_DISPONIVEL") val quantidadeDisponivel: Int
-    ) : Parcelable
 }
