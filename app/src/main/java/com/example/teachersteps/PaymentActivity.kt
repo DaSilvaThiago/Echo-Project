@@ -11,17 +11,13 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonNull
-import responses.Responses
+import api.client.Responses
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import services.Services
+import api.client.Services
 import java.lang.reflect.Type
 
 class PaymentActivity : AppCompatActivity() {
@@ -57,18 +53,8 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     private fun loadUserAddresses(userId: Int) {
-        val gson = GsonBuilder()
-            .setLenient()
-            .registerTypeAdapter(Responses.Address::class.java, EnderecoDeserializer())
-            .create()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://echo-api-senac.vercel.app/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-
-        val api = retrofit.create(Services.Order::class.java)
-        val call = api.getUserAddresses(userId)
+        val apiService = Client.createService(Services.Order::class.java)
+        val call = apiService.getUserAddresses(userId)
         call.enqueue(object : Callback<List<Responses.Address>> {
             override fun onResponse(call: Call<List<Responses.Address>>, response: Response<List<Responses.Address>>) {
                 if (response.isSuccessful) {
@@ -113,13 +99,8 @@ class PaymentActivity : AppCompatActivity() {
         val jsonOrderRequest = gson.toJson(orderRequest)
         Log.d("API_REQUEST_JSON", "Order Request JSON: $jsonOrderRequest")
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://echo-api-senac.vercel.app/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-
-        val api = retrofit.create(Services.Order::class.java)
-        val call = api.createOrder(orderRequest)
+        val apiService = Client.createService(Services.Order::class.java)
+        val call = apiService.createOrder(orderRequest)
         call.enqueue(object : Callback<Responses.OrderResponse> {
             override fun onResponse(call: Call<Responses.OrderResponse>, response: Response<Responses.OrderResponse>) {
                 if (response.isSuccessful) {

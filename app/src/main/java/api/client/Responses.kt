@@ -1,4 +1,4 @@
-package responses
+package api.client
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

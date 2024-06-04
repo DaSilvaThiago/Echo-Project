@@ -1,10 +1,6 @@
-package services
+package api.client
 
-import com.example.teachersteps.CartActivity
-import com.example.teachersteps.LoginActivity
-import com.example.teachersteps.MainActivity
-import com.example.teachersteps.PaymentActivity
-import responses.Responses
+import api.client.Responses
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field

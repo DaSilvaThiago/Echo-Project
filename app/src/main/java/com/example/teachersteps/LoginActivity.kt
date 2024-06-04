@@ -10,15 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
 import android.util.Log
-import com.google.gson.annotations.SerializedName
-import responses.Responses
-import retrofit2.http.GET
-import retrofit2.http.Query
-import services.Services
+import api.client.Responses
+import api.client.Services
 
 class LoginActivity : AppCompatActivity() {
 
@@ -42,12 +36,7 @@ class LoginActivity : AppCompatActivity() {
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://echo-api-senac.vercel.app")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(Services.Login::class.java)
+        val apiService = Client.createService(Services.Login::class.java)
 
         val call = apiService.login(email, password)
         call.enqueue(object : Callback<Responses.Login> {

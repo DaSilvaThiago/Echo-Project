@@ -15,20 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.gson.annotations.SerializedName
 import retrofit2.Call
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import responses.Responses
+import api.client.Responses
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Query
-import retrofit2.http.Body
-import services.Services
+import api.client.Services
 
 class CartActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -64,14 +57,9 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun fetchCartItems() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://echo-api-senac.vercel.app")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val apiService = Client.createService(Services.Cart::class.java)
 
-        val api = retrofit.create(Services.Cart::class.java)
-
-        api.getCartItems(userId).enqueue(object : Callback<List<Responses.ProductCart>> {
+        apiService.getCartItems(userId).enqueue(object : Callback<List<Responses.ProductCart>> {
             override fun onResponse(call: Call<List<Responses.ProductCart>>, response: Response<List<Responses.ProductCart>>) {
                 if (response.isSuccessful) {
                     val cartItems = response.body()?.filter { it.quantidadeDisponivel > 0 }?.toMutableList() ?: mutableListOf()

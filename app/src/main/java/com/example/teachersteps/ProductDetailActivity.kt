@@ -15,10 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import services.Services
+import api.client.Services
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -53,22 +50,10 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {
-        // Configurar interceptor de logging
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
+        val apiService = Client.createServiceScalar(Services.ProductDetail::class.java)
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://echo-api-senac.vercel.app")
-            .addConverterFactory(ScalarsConverterFactory.create()) // Usar ScalarsConverterFactory para respostas de texto
-            .client(client)
-            .build()
-
-        val api = retrofit.create(Services.ProductDetail::class.java)
-        api.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
+        apiService.adicionarAoCarrinho(userId, produtoId, quantidade).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@ProductDetailActivity, response.body() ?: "Sucesso!", Toast.LENGTH_SHORT).show()

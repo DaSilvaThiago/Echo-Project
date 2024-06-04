@@ -11,12 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.GET
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Callback
@@ -24,8 +22,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import com.bumptech.glide.Glide
-import responses.Responses
-import services.Services
+import api.client.Responses
+import api.client.Services
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -38,19 +36,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewProdutos)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val logging = HttpLoggingInterceptor { message ->
-            Log.d("OkHttp", message)
-        }.apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
-
         val btnCarrinho = findViewById<Button>(R.id.Carrinho)
         val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", 0)
@@ -62,13 +47,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://echo-api-senac.vercel.app")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
-
-        val apiService = retrofit.create(Services.Products::class.java)
+        val apiService = Client.createService(Services.Products::class.java)
 
         apiService.getProdutos().enqueue(object : Callback<List<Responses.Product>> {
             override fun onResponse(call: Call<List<Responses.Product>>, response: Response<List<Responses.Product>>) {
