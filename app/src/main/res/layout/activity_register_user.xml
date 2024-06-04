@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterUserActivity">
+
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="CPF"
+        app:layout_constraintStart_toStartOf="@+id/nameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:text="Nome"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/cpfEditText"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/inputfit"
+        android:hint="000.000.000-00"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/inputfit"
+        android:hint="John"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Email"
+        app:layout_constraintStart_toStartOf="@+id/cpfEditText"
+        app:layout_constraintTop_toBottomOf="@+id/cpfEditText" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/inputfit"
+        android:hint="jonhn@gmail.com"
+
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <Button
+        android:id="@+id/createBtn"
+        android:layout_width="314dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+
+
+        android:background="@drawable/circle_blue"
+
+        android:text="Criar conta"
+        android:textColor="#FFFFFF"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="313dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Criar conta"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="265dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="4dp"
+        android:text="Tire melhor proveito criando uma conta."
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+    <Button
+        android:id="@+id/loginPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:background="#00FFFFFF"
+        android:padding="0sp"
+        android:text="Faça login"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0sp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="40dp"
+        android:text="Já tem conta?"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/createBtn"
+        app:layout_constraintTop_toBottomOf="@+id/createBtn"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Senha"
+        app:layout_constraintEnd_toEndOf="@+id/emailEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="312dp"
+        android:layout_height="57dp"
+        app:layout_constraintEnd_toEndOf="@+id/emailEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailEditText"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inputfit"
+            android:hint="Digite sua senha"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textSize="12dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="31dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="56dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

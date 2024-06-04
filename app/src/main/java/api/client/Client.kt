@@ -40,6 +40,16 @@ object Client {
             .build()
     }
 
+    object RetrofitRegister {
+        val api: Services.Register by lazy {
+            Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(Services.Register::class.java)
+        }
+    }
+
     fun <T> createService(serviceClass: Class<T>): T {
         return retrofit.create(serviceClass)
     }

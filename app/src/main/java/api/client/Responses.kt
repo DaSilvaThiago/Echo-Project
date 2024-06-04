@@ -74,7 +74,14 @@ class Responses {
         val code: Int,
         val message: String
     )
-
-
-
+    data class RegisterUser(
+        val nome: String,
+        val email: String,
+        val senha: String,
+        val cpf: String
+    )
+    data class RegisterUserResponse(
+        val id: Int,
+        val message: String
+    )
 }

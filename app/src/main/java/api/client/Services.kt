@@ -1,7 +1,7 @@
 package api.client
 
-import api.client.Responses
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -18,6 +18,11 @@ class Services {
             @Query("usuario") usuario: String,
             @Query("senha") senha: String
         ): Call<Responses.Login>
+    }
+
+    interface Register {
+        @POST("register")
+        suspend fun registerUser(@Body user: Responses.RegisterUser): Response<Responses.RegisterUserResponse>
     }
 
     interface Products {
