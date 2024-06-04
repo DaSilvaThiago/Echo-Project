@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        val loginButton: Button = findViewById(R.id.loginButton)
+        val loginButton: Button = findViewById(R.id.loginBtn)
 
         loginButton.setOnClickListener {
             blockLogin()
