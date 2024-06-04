@@ -15,6 +15,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
+import api.client.Adapters
+import api.client.Client
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Callback
@@ -27,7 +29,7 @@ import api.client.Services
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CustomAdapter
+    private lateinit var adapter: Adapters.AdapterMainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Responses.Product>>, response: Response<List<Responses.Product>>) {
                 if (response.isSuccessful) {
                     val produtos = response.body() ?: emptyList()
-                    adapter = CustomAdapter(produtos)
+                    adapter = Adapters.AdapterMainActivity(produtos)
                     recyclerView.adapter = adapter
                 } else {
                     Log.e("API Error", "Response not successful. Code: ${response.code()}")
@@ -66,48 +68,4 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
-    class CustomAdapter(private val dataSet: List<Responses.Product>) :
-        RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-
-        class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val nome: TextView = view.findViewById(R.id.nomeProduto)
-            val descricao: TextView = view.findViewById(R.id.descricaoProduto)
-            val valor: TextView = view.findViewById(R.id.valorProduto)
-            val imagem: ImageView = view.findViewById(R.id.imagem_produto)
-            val btnComprar: Button = view.findViewById(R.id.btnComprar)
-        }
-
-        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_produto, viewGroup, false)
-
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-            val produto = dataSet[position]
-
-            viewHolder.nome.text = produto.produtoNome
-            viewHolder.descricao.text = produto.produtoDesc
-            viewHolder.valor.text = produto.produtoPreco
-
-            Glide.with(viewHolder.itemView.context)
-                .load(produto.imagemUrl)
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(com.google.android.material.R.drawable.mtrl_ic_error)
-                .into(viewHolder.imagem)
-
-            viewHolder.btnComprar.setOnClickListener {
-                val intent = Intent(viewHolder.itemView.context, ProductDetailActivity::class.java)
-                intent.putExtra("ID_PRODUTO", produto.produtoId)
-                intent.putExtra("NOME_PRODUTO", produto.produtoNome)
-                intent.putExtra("DESCRICAO_PRODUTO", produto.produtoDesc)
-                intent.putExtra("QUANTIDADE_DISPONIVEL", produto.quantidadeDisponivel)
-                viewHolder.itemView.context.startActivity(intent)
-            }
-        }
-
-        override fun getItemCount() = dataSet.size
-    }
 }

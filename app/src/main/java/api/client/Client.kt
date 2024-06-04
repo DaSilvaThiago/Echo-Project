@@ -1,13 +1,15 @@
-package com.example.teachersteps
+package api.client
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import api.client.Responses
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.JsonNull
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.lang.reflect.Type
 
 object Client {
 
@@ -18,7 +20,7 @@ object Client {
             .setLenient()
             .registerTypeAdapter(
                 Responses.Address::class.java,
-                PaymentActivity.EnderecoDeserializer()
+                EnderecoDeserializer()
             )
             .create()
     }
@@ -44,6 +46,31 @@ object Client {
 
     fun <T> createServiceScalar(serviceClass: Class<T>): T {
         return retrofitScalar.create(serviceClass)
+    }
+}
+
+class EnderecoDeserializer : JsonDeserializer<Responses.Address> {
+    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Responses.Address {
+        val jsonObject = json?.asJsonObject!!
+
+        val enderecoApagado = if (jsonObject.get("ENDERECO_APAGADO").isJsonObject) {
+            jsonObject.getAsJsonObject("ENDERECO_APAGADO").getAsJsonArray("data")[0].asInt
+        } else {
+            0
+        }
+
+        return Responses.Address(
+            ENDERECO_ID = jsonObject.get("ENDERECO_ID").asInt,
+            USUARIO_ID = jsonObject.get("USUARIO_ID").asInt,
+            ENDERECO_NOME = jsonObject.get("ENDERECO_NOME").asString,
+            ENDERECO_LOGRADOURO = jsonObject.get("ENDERECO_LOGRADOURO").asString,
+            ENDERECO_NUMERO = jsonObject.get("ENDERECO_NUMERO").asString,
+            ENDERECO_COMPLEMENTO = if (jsonObject.get("ENDERECO_COMPLEMENTO") is JsonNull) null else jsonObject.get("ENDERECO_COMPLEMENTO").asString,
+            ENDERECO_CEP = jsonObject.get("ENDERECO_CEP").asString,
+            ENDERECO_CIDADE = jsonObject.get("ENDERECO_CIDADE").asString,
+            ENDERECO_ESTADO = jsonObject.get("ENDERECO_ESTADO").asString,
+            ENDERECO_APAGADO = enderecoApagado
+        )
     }
 }
 

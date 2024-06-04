@@ -11,6 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
+import api.client.Client
 import api.client.Responses
 import api.client.Services
 

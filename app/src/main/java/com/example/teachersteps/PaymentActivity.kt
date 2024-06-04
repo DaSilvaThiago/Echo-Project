@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import api.client.Client
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
@@ -121,33 +122,5 @@ class PaymentActivity : AppCompatActivity() {
             }
         })
     }
-
-
-
-    class EnderecoDeserializer : JsonDeserializer<Responses.Address> {
-        override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Responses.Address {
-            val jsonObject = json?.asJsonObject!!
-
-            val enderecoApagado = if (jsonObject.get("ENDERECO_APAGADO").isJsonObject) {
-                jsonObject.getAsJsonObject("ENDERECO_APAGADO").getAsJsonArray("data")[0].asInt
-            } else {
-                0
-            }
-
-            return Responses.Address(
-                ENDERECO_ID = jsonObject.get("ENDERECO_ID").asInt,
-                USUARIO_ID = jsonObject.get("USUARIO_ID").asInt,
-                ENDERECO_NOME = jsonObject.get("ENDERECO_NOME").asString,
-                ENDERECO_LOGRADOURO = jsonObject.get("ENDERECO_LOGRADOURO").asString,
-                ENDERECO_NUMERO = jsonObject.get("ENDERECO_NUMERO").asString,
-                ENDERECO_COMPLEMENTO = if (jsonObject.get("ENDERECO_COMPLEMENTO") is JsonNull) null else jsonObject.get("ENDERECO_COMPLEMENTO").asString,
-                ENDERECO_CEP = jsonObject.get("ENDERECO_CEP").asString,
-                ENDERECO_CIDADE = jsonObject.get("ENDERECO_CIDADE").asString,
-                ENDERECO_ESTADO = jsonObject.get("ENDERECO_ESTADO").asString,
-                ENDERECO_APAGADO = enderecoApagado
-            )
-        }
-    }
-
 
 }

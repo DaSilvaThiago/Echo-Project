@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import api.client.Client
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -48,7 +49,6 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun adicionarAoCarrinho(userId: Int, produtoId: Int, quantidade: Int) {
 
         val apiService = Client.createServiceScalar(Services.ProductDetail::class.java)
