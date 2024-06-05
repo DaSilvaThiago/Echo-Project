@@ -2,55 +2,111 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_width="310dp"
+    android:layout_height="420dp"
+    android:layout_margin="12dp"
+    android:orientation="vertical"
+    android:background="@drawable/card_product"
+    >
+
 
     <ImageView
-        android:id="@+id/imagem_produto"
-        android:layout_width="100dp"
+        android:id="@+id/star5"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="@+id/star1"
+        app:layout_constraintStart_toEndOf="@+id/star1"
+        app:layout_constraintTop_toTopOf="@+id/star1"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/baseline_star_rate_24" />
+
+    <ImageButton
+        android:id="@+id/imagem_produto"
+        android:layout_width="311dp"
+        android:layout_height="310dp"
+        android:background="@drawable/card_product"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nomeProduto" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/nomeProduto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="302dp"
+        android:layout_height="28dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Nome do produto"
+        android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagem_produto" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:text="100 reviews"
+        app:layout_constraintBottom_toBottomOf="@+id/star5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagem_produto"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintStart_toEndOf="@+id/star5"
+        app:layout_constraintTop_toTopOf="@+id/star5"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/descricaoProduto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="303dp"
+        android:layout_height="20dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
+        android:text="Descrição do produto"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagem_produto"
-        app:layout_constraintTop_toBottomOf="@id/nomeProduto" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/nomeProduto"
+        app:layout_constraintTop_toBottomOf="@+id/star4"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/valorProduto"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/star4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagem_produto"
-        app:layout_constraintTop_toBottomOf="@id/descricaoProduto" />
+        app:layout_constraintStart_toStartOf="@+id/nomeProduto"
+        app:layout_constraintTop_toBottomOf="@+id/nomeProduto"
+        app:srcCompat="@drawable/baseline_star_rate_24" />
 
-    <Button
-        android:id="@+id/btnComprar"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/star3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="4dp"
-        android:text="Adicionar ao carrinho"
-        app:layout_constraintEnd_toEndOf="@+id/valorProduto"
-        app:layout_constraintStart_toStartOf="@+id/valorProduto"
-        app:layout_constraintTop_toBottomOf="@+id/valorProduto" />
+        app:layout_constraintBottom_toBottomOf="@+id/star4"
+        app:layout_constraintStart_toEndOf="@+id/star4"
+        app:layout_constraintTop_toTopOf="@+id/star4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/baseline_star_rate_24" />
+
+    <ImageView
+        android:id="@+id/star2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/star3"
+        app:layout_constraintStart_toEndOf="@+id/star3"
+        app:layout_constraintTop_toTopOf="@+id/star3"
+        app:srcCompat="@drawable/baseline_star_rate_24" />
+
+    <ImageView
+        android:id="@+id/star1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/star2"
+        app:layout_constraintStart_toEndOf="@+id/star2"
+        app:layout_constraintTop_toTopOf="@+id/star2"
+        app:srcCompat="@drawable/baseline_star_rate_24" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -28,9 +29,8 @@ class Adapters {
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val nome: TextView = view.findViewById(R.id.nomeProduto)
             val descricao: TextView = view.findViewById(R.id.descricaoProduto)
-            val valor: TextView = view.findViewById(R.id.valorProduto)
-            val imagem: ImageView = view.findViewById(R.id.imagem_produto)
-            val btnComprar: Button = view.findViewById(R.id.btnComprar)
+            //val valor: TextView = view.findViewById(R.id.valorProduto)
+            val imagem: ImageButton = view.findViewById(R.id.imagem_produto)
         }
 
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -45,7 +45,7 @@ class Adapters {
 
             viewHolder.nome.text = produto.produtoNome
             viewHolder.descricao.text = produto.produtoDesc
-            viewHolder.valor.text = produto.produtoPreco
+            //viewHolder.valor.text = produto.produtoPreco
 
             Glide.with(viewHolder.itemView.context)
                 .load(produto.imagemUrl)
@@ -53,7 +53,7 @@ class Adapters {
                 .error(com.google.android.material.R.drawable.mtrl_ic_error)
                 .into(viewHolder.imagem)
 
-            viewHolder.btnComprar.setOnClickListener {
+            viewHolder.imagem.setOnClickListener {
                 val intent = Intent(viewHolder.itemView.context, ProductDetailActivity::class.java)
                 intent.putExtra("ID_PRODUTO", produto.produtoId)
                 intent.putExtra("NOME_PRODUTO", produto.produtoNome)
