@@ -10,15 +10,7 @@
     >
 
 
-    <ImageView
-        android:id="@+id/star5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/star1"
-        app:layout_constraintStart_toEndOf="@+id/star1"
-        app:layout_constraintTop_toTopOf="@+id/star1"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/baseline_star_rate_24" />
+
 
     <ImageButton
         android:id="@+id/imagem_produto"
@@ -97,6 +89,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/star3"
         app:layout_constraintStart_toEndOf="@+id/star3"
         app:layout_constraintTop_toTopOf="@+id/star3"
+        app:srcCompat="@drawable/baseline_star_rate_24" />
+
+    <ImageView
+        android:id="@+id/star5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/star1"
+        app:layout_constraintStart_toEndOf="@+id/star1"
+        app:layout_constraintTop_toTopOf="@+id/star1"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/baseline_star_rate_24" />
 
     <ImageView

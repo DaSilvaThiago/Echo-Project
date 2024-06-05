@@ -4,87 +4,242 @@
     android:id="@+id/layoutPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/txtNomeProduto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="Produto Nome"
-        android:textColor="#333"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtDescricaoProduto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Descricao"
-        android:textColor="#666"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeProduto" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Quantidade desejada:"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editQuantidadeDesejada"
-        app:layout_constraintEnd_toStartOf="@+id/editQuantidadeDesejada"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editQuantidadeDesejada" />
-
-    <EditText
-        android:id="@+id/editQuantidadeDesejada"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="0"
-        android:inputType="number"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeDisponivelLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantidade disponível:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editQuantidadeDesejada" />
-
-    <TextView
-        android:id="@+id/txtQuantidadeDisponivel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtQuantidadeDisponivelLabel"
-        app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel" />
+    android:padding="0dp">
 
     <Button
         android:id="@+id/btnAdicionarAoCarrinho"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="#2C7D8C"
         android:text="Adicionar ao Carrinho"
         android:textAllCaps="false"
         android:textColor="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="411dp"
+        android:layout_height="680dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuantidadeDisponivel" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgProduto"
+                android:layout_width="406dp"
+                android:layout_height="374dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/txtNomeProduto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:gravity="center"
+                android:text="Produto Nome"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.391" />
+
+            <ImageView
+                android:id="@+id/star4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="@+id/txtNomeProduto"
+                app:layout_constraintTop_toBottomOf="@+id/txtNomeProduto"
+                app:srcCompat="@drawable/baseline_star_rate_24" />
+
+            <ImageView
+                android:id="@+id/star3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/star4"
+                app:layout_constraintStart_toEndOf="@+id/star4"
+                app:layout_constraintTop_toTopOf="@+id/star4"
+                app:srcCompat="@drawable/baseline_star_rate_24" />
+
+            <ImageView
+                android:id="@+id/star2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/star3"
+                app:layout_constraintStart_toEndOf="@+id/star3"
+                app:layout_constraintTop_toTopOf="@+id/star3"
+                app:srcCompat="@drawable/baseline_star_rate_24" />
+
+            <ImageView
+                android:id="@+id/star1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/star2"
+                app:layout_constraintStart_toEndOf="@+id/star2"
+                app:layout_constraintTop_toTopOf="@+id/star2"
+                app:srcCompat="@drawable/baseline_star_rate_24" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="100 reviews"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/star5"
+                app:layout_constraintStart_toEndOf="@+id/star5"
+                app:layout_constraintTop_toTopOf="@+id/star5"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/star5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/star1"
+                app:layout_constraintStart_toEndOf="@+id/star1"
+                app:layout_constraintTop_toTopOf="@+id/star1"
+                app:srcCompat="@drawable/baseline_star_rate_24" />
+
+
+            <TextView
+                android:id="@+id/txtDescricaoProduto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Descricao"
+                android:textColor="#666"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <TextView
+                android:id="@+id/txtQuantidadeLabel"
+                style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
+                android:layout_width="146dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/inputfit"
+                android:padding="12dp"
+                android:text="Quantidade desejada"
+                android:textColor="#000000"
+                android:textColorHint="#CD000000"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/horizontalLine"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalLine" />
+
+            <EditText
+                android:id="@+id/editQuantidadeDesejada"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:hint="0"
+                android:inputType="number"
+                android:minHeight="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtQuantidadeLabel"
+                app:layout_constraintStart_toEndOf="@+id/txtQuantidadeLabel"
+                app:layout_constraintTop_toTopOf="@+id/txtQuantidadeLabel"
+                app:layout_constraintVertical_bias="0.6" />
+
+            <TextView
+                android:id="@+id/txtQuantidadeDisponivelLabel"
+                style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
+                android:layout_width="146dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/inputfit"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textSize="12dp"
+                android:textColorHint="#CD000000"
+                android:text="Quantidade disponível:"
+                app:layout_constraintStart_toStartOf="@+id/txtQuantidadeLabel"
+                app:layout_constraintTop_toBottomOf="@+id/txtQuantidadeLabel" />
+
+            <TextView
+                android:id="@+id/txtQuantidadeDisponivel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="0"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtQuantidadeDisponivelLabel"
+                app:layout_constraintStart_toEndOf="@+id/txtQuantidadeDisponivelLabel"
+                app:layout_constraintTop_toTopOf="@+id/txtQuantidadeDisponivelLabel"
+                app:layout_constraintVertical_bias="1.0" />
+
+
+            <View
+                android:id="@+id/horizontalLine"
+                android:layout_width="336dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                android:background="#000000"
+                app:layout_constraintEnd_toEndOf="@+id/txtDescricaoProduto"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txtDescricaoProduto"
+                app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Sobre"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/star4"
+                app:layout_constraintTop_toBottomOf="@+id/imgProduto" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="sans-serif-black"
+                android:text="onde vai ficar"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/horizontalLine2"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalLine2" />
+
+            <View
+                android:id="@+id/horizontalLine2"
+                android:layout_width="336dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="40dp"
+                android:background="#000000"
+                app:layout_constraintStart_toStartOf="@+id/txtQuantidadeDisponivelLabel"
+                app:layout_constraintTop_toBottomOf="@+id/txtQuantidadeDisponivelLabel" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:background="#FFFFFF"
+
+                app:srcCompat="@drawable/baseline_arrow_back_ios_new_24"
+                tools:layout_editor_absoluteX="180dp"
+                tools:layout_editor_absoluteY="27dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,13 @@
 package com.example.teachersteps
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +20,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import api.client.Services
+import com.bumptech.glide.Glide
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -24,20 +28,29 @@ class ProductDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
 
-        val nomeProduto = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
-        val descricaoProduto = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
+        val produtoNome = intent.getStringExtra("NOME_PRODUTO") ?: "Nome não disponível"
+        val produtoDesc = intent.getStringExtra("DESCRICAO_PRODUTO") ?: "Descrição não disponível"
         val produtoId = intent.getIntExtra("ID_PRODUTO", 0)
-        val quantidadeDisponivel = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
+        val produtoImg = intent.getStringExtra("IMAGEM_URL") ?: "Imagem não disponível"
+        val produtoQtd = intent.getIntExtra("QUANTIDADE_DISPONIVEL", 0)
 
-        findViewById<TextView>(R.id.txtNomeProduto).text = nomeProduto
-        findViewById<TextView>(R.id.txtDescricaoProduto).text = descricaoProduto
-        findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = quantidadeDisponivel.toString()
+        findViewById<TextView>(R.id.txtNomeProduto).text = produtoNome
+        findViewById<TextView>(R.id.txtDescricaoProduto).text = produtoDesc
+        findViewById<TextView>(R.id.txtQuantidadeDisponivel).text = produtoQtd.toString()
+        Glide.with(this).load(produtoImg).into(findViewById(R.id.imgProduto))
 
         val editTextQuantidade = findViewById<EditText>(R.id.editQuantidadeDesejada)
         val btnAdicionarCarrinho = findViewById<Button>(R.id.btnAdicionarAoCarrinho)
 
         val sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", 0)
+
+        val returnButton = findViewById<ImageButton>(R.id.imageButton)
+        returnButton.setOnClickListener{
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(
+                intent)
+        }
 
         btnAdicionarCarrinho.setOnClickListener {
             val quantidadeDesejada = editTextQuantidade.text.toString().toIntOrNull() ?: 0

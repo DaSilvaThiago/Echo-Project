@@ -5,15 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="31dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="393dp"
+        android:layout_height="593dp"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toTopOf="@+id/totalTextView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854" />
 
     <TextView
         android:id="@+id/totalTextView"

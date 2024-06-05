@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // Carregar produtos internacionais (substitua `getProdutosInternacionais` pela API correta)
+        // Carregar produtos internacionais (substitua `getProdutosInternacionais` pela API que for retornar os produtos internacionais, aqui estou retornando tudo o mesmo)
         apiService.getProdutos().enqueue(object : Callback<List<Responses.Product>> {
             override fun onResponse(call: Call<List<Responses.Product>>, response: Response<List<Responses.Product>>) {
                 if (response.isSuccessful) {
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // Carregar produtos de intercâmbio (substitua `getProdutosIntercambio` pela API correta)
+        // Carregar produtos de intercâmbio (substitua `getProdutosIntercambio` pela API que for retornar os produtos de intercambio, aqui estou retornando tudo o mesmo)
         apiService.getProdutos().enqueue(object : Callback<List<Responses.Product>> {
             override fun onResponse(call: Call<List<Responses.Product>>, response: Response<List<Responses.Product>>) {
                 if (response.isSuccessful) {

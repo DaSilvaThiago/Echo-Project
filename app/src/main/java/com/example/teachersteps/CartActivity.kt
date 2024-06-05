@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -46,6 +47,13 @@ class CartActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         fetchCartItems()
+
+        val returnButton = findViewById<ImageButton>(R.id.imageButton)
+        returnButton.setOnClickListener{
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(
+                intent)
+        }
 
         goToPaymentButton.setOnClickListener {
             val intent = Intent(this, PaymentActivity::class.java).apply {
